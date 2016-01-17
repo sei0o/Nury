@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <link href="index.css" rel="stylesheet">
+  <title>Nury</title>
+</head>
+<body>
+  <table id="nury">
+  </table>
+
+  <button class="subject" style="background-color: red;">国語</button>
+  <button class="subject" style="background-color: blue;">数学</button>
+  <button class="subject" style="background-color: green;">理科</button>
+  <button class="subject" style="background-color: gold;">社会</button>
+  <button class="subject" style="background-color: purple;">英語</button>
+
+  <button class="revert">取り消し</button>
+
+  <script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+  <script>
+    $(function(){
+      var current = [0, 0];
+
+      for(var i = 0; i < 16; i++){
+        var l = $("<tr>");
+        $("#nury").append(l);
+
+        for(var j = 0; j < 16; j++){
+          var cell = $("<td>").addClass("cell");
+          cell.attr("data-x", j);
+          cell.attr("data-y", i);
+          l.append(cell);
+        }
+      }
+
+      $(".subject").on("click", function(e){
+        getCell(current).css("backgroundColor", $(this).css("backgroundColor"));
+        current = nextCell(current);
+      });
+
+      $(".revert").on("click", function(e){
+        current = prevCell(current);
+        getCell(current).css("backgroundColor", "white");
+      });
+
+      function getCell(coordinates) {
+        return $(".cell[data-x="+ coordinates[0] +"][data-y="+ coordinates[1] +"]");
+      }
+
+      function prevCell(here) {
+        var prevX = here[0] - 1;
+        var prevY = here[1];
+
+        if(prevX < 0){
+          prevX = 15;
+          prevY--;
+        }
+
+        if(prevY < 0){
+          prevX = 0;
+          prevY = 0;
+        }
+
+        return [prevX, prevY];
+      }
+
+      function nextCell(here) {
+        var nextX = here[0] + 1;
+        var nextY = here[1];
+
+        if(nextX > 15){
+          nextX = 0;
+          nextY++;
+        }
+
+        if(nextY > 15) { nextY = 15; }
+
+        return [nextX, nextY];
+      }
+
+      function loadStorage() {
+      }
+
+      function saveStorage() {
+
+      }
+    });
+  </script>
+</body>
+</html>

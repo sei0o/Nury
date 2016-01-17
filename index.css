@@ -1,0 +1,16 @@
+#nury {
+  border-collapse: collapse;
+}
+
+.cell {
+  height: 30px;
+  width: 30px;
+  border: solid 1px #ccc;
+  margin: 0;
+  padding: 0;
+}
+
+.subject {
+  color: white;
+  border: none;
+}
